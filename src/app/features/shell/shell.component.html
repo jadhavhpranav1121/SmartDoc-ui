@@ -1,0 +1,43 @@
+<div class="shell">
+  <!-- Header -->
+  <header class="shell-header">
+    <div class="header-brand">
+      <svg width="28" height="28" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="10" fill="var(--color-accent)"/>
+        <path d="M10 12h16M10 18h10M10 24h13" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="27" cy="24" r="4" fill="#fff" opacity="0.9"/>
+        <path d="M25.5 24l1 1 2-2" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="brand-name">SmartDoc AI</span>
+    </div>
+
+    <div class="header-actions">
+      <span class="user-chip chip">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+          <circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M2 14c0-3.314 2.686-6 6-6s6 2.686 6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        {{ username$ | async }}
+      </span>
+      <button class="btn btn-ghost logout-btn" (click)="onLogout()">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+          <path d="M6 2H3a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3M11 11l3-3-3-3M6 8h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Sign out
+      </button>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <div class="shell-body">
+    <!-- Sidebar: Upload panel -->
+    <aside class="shell-sidebar">
+      <app-upload-panel></app-upload-panel>
+    </aside>
+
+    <!-- Main area: Chat -->
+    <main class="shell-main">
+      <app-chat-window></app-chat-window>
+    </main>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/shared/components/spinner/spinner.component.scss"],
+  "sourcesContent": [".spinner {\n  display: inline-block;\n  animation: spin 0.7s linear infinite;\n  flex-shrink: 0;\n}\n\n@keyframes spin {\n  to { transform: rotate(360deg); }\n}\n"],
+  "mappings": ";AAAA,CAAA;AACE,WAAA;AACA,aAAA,KAAA,KAAA,OAAA;AACA,eAAA;;AAGF,WAJE;AAKA;AAAK,eAAA,OAAA;;;",
+  "names": []
+}

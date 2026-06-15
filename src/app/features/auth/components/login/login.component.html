@@ -1,0 +1,67 @@
+<div class="login-page">
+  <div class="login-card card">
+    <div class="login-header">
+      <div class="logo">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="10" fill="var(--color-accent)"/>
+          <path d="M10 12h16M10 18h10M10 24h13" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="27" cy="24" r="4" fill="#fff" opacity="0.9"/>
+          <path d="M25.5 24l1 1 2-2" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h1 class="login-title">SmartDoc AI</h1>
+      <p class="login-subtitle text-muted">Sign in to query your documents</p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" class="login-form" novalidate>
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          class="input"
+          formControlName="username"
+          placeholder="admin"
+          autocomplete="username"
+        />
+        <span class="field-error" *ngIf="form.get('username')?.touched && form.get('username')?.hasError('required')">
+          Username is required
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          class="input"
+          formControlName="password"
+          placeholder="••••••••"
+          autocomplete="current-password"
+        />
+        <span class="field-error" *ngIf="form.get('password')?.touched && form.get('password')?.hasError('required')">
+          Password is required
+        </span>
+      </div>
+
+      <div class="error-banner" *ngIf="error$ | async as err">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <circle cx="8" cy="8" r="7" stroke="var(--color-danger)" stroke-width="1.5"/>
+          <path d="M8 5v4M8 11v.5" stroke="var(--color-danger)" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        {{ err }}
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-primary login-btn"
+        [disabled]="(loading$ | async) || form.invalid"
+      >
+        <app-spinner *ngIf="loading$ | async" [size]="16"></app-spinner>
+        <span>{{ (loading$ | async) ? 'Signing in…' : 'Sign in' }}</span>
+      </button>
+    </form>
+
+    <p class="login-hint text-muted">Demo credentials: <span class="text-mono">admin / password123</span></p>
+  </div>
+</div>

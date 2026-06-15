@@ -1,0 +1,80 @@
+<div class="chat-window">
+  <!-- Chat toolbar -->
+  <div class="chat-toolbar">
+    <div class="toolbar-info">
+      <span class="toolbar-title">Chat</span>
+      <span class="session-chip chip text-mono" *ngIf="(sessionId$ | async) && (sessionId$ | async) !== 'new'">
+        Session: {{ (sessionId$ | async)?.slice(0, 8) }}…
+      </span>
+    </div>
+    <div class="toolbar-actions">
+      <button class="btn btn-ghost toolbar-btn" (click)="onNewSession()" title="New session (keeps history)">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+          <path d="M8 2a6 6 0 1 1-4.243 10.243" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M2 6V2h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        New session
+      </button>
+      <button class="btn btn-ghost toolbar-btn" (click)="onClear()" title="Clear conversation">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+          <path d="M3 4h10M6 4V3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v1M5 4l.5 9h5l.5-9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Clear
+      </button>
+    </div>
+  </div>
+
+  <!-- Message list -->
+  <div class="message-list" #messageList>
+
+    <!-- Empty state -->
+    <div class="empty-state" *ngIf="(messages$ | async)?.length === 0 && !(loading$ | async)">
+      <div class="empty-icon">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <rect x="8" y="8" width="32" height="32" rx="8" stroke="var(--color-border)" stroke-width="2"/>
+          <path d="M16 18h16M16 24h12M16 30h10" stroke="var(--color-border)" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="36" cy="36" r="8" fill="var(--color-surface)" stroke="var(--color-border)" stroke-width="1.5"/>
+          <path d="M33 36h6M36 33v6" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <p class="empty-title">Ask about your document</p>
+      <p class="empty-hint text-muted">Upload a PDF in the sidebar, then type your question below</p>
+    </div>
+
+    <!-- Messages -->
+    <app-message-bubble
+      *ngFor="let msg of messages$ | async; trackBy: trackByMessage"
+      [message]="msg"
+    ></app-message-bubble>
+
+    <!-- Typing indicator -->
+    <div class="typing-indicator" *ngIf="loading$ | async">
+      <div class="avatar ai-avatar-small">
+        <svg width="12" height="12" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="10" fill="var(--color-accent)"/>
+          <path d="M10 12h16M10 18h10M10 24h13" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="typing-bubble">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+
+    <!-- Error banner -->
+    <div class="error-banner" *ngIf="error$ | async as err">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+        <circle cx="8" cy="8" r="7" stroke="var(--color-danger)" stroke-width="1.5"/>
+        <path d="M8 5v3M8 10v1" stroke="var(--color-danger)" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      {{ err }}
+    </div>
+  </div>
+
+  <!-- Question input -->
+  <app-question-input
+    [disabled]="(loading$ | async) ?? false"
+    (send)="onSend($event)"
+  ></app-question-input>
+</div>

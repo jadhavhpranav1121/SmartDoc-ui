@@ -24,7 +24,8 @@
       "@shared/*": ["src/app/shared/*"],
       "@features/*": ["src/app/features/*"],
       "@store/*": ["src/app/store/*"],
-      "@env/*": ["src/environments/*"]
+      "@env/*": ["src/environments/*"],
+      "@ngrx/store/src/models": ["node_modules/@ngrx/store/src/models"]
     }
   },
   "angularCompilerOptions": {

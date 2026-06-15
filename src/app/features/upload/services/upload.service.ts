@@ -1,4 +1,4 @@
-import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpParams, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
@@ -17,12 +17,13 @@ export class UploadService {
     const formData = new FormData();
     formData.append('file', file);
 
+    const params = new HttpParams()
+      .set('chunkSize', chunkSize.toString())
+      .set('overlap', overlap.toString());
+
     const req = new HttpRequest('POST', this.url, formData, {
       reportProgress: true,
-      params: {
-        chunkSize: chunkSize.toString(),
-        overlap: overlap.toString()
-      }
+      params
     });
 
     return this.http.request(req);

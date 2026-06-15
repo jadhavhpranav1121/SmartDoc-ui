@@ -1,0 +1,37 @@
+<div class="bubble-row" [class.user-row]="message.role === 'user'" [class.ai-row]="message.role === 'ai'">
+
+  <!-- AI avatar -->
+  <div class="avatar ai-avatar" *ngIf="message.role === 'ai'">
+    <svg width="16" height="16" viewBox="0 0 36 36" fill="none">
+      <rect width="36" height="36" rx="10" fill="var(--color-accent)"/>
+      <path d="M10 12h16M10 18h10M10 24h13" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <div class="bubble" [class.user-bubble]="message.role === 'user'" [class.ai-bubble]="message.role === 'ai'">
+    <!-- Message text -->
+    <div class="bubble-text">{{ message.text }}</div>
+
+    <!-- AI metadata row -->
+    <div class="bubble-meta" *ngIf="message.role === 'ai' && (message.sourcesUsed || message.timeTakenMs)">
+      <span class="chip chip-accent" *ngIf="message.sourcesUsed">
+        <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+          <path d="M2 2h8M2 6h5M2 10h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        {{ message.sourcesUsed }} sources
+      </span>
+      <span class="chip" *ngIf="message.sourceFile">{{ message.sourceFile }}</span>
+      <span class="time-chip text-muted" *ngIf="message.timeTakenMs">
+        {{ message.timeTakenMs }}ms
+      </span>
+    </div>
+  </div>
+
+  <!-- User avatar -->
+  <div class="avatar user-avatar" *ngIf="message.role === 'user'">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+      <circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M2 14c0-3.314 2.686-6 6-6s6 2.686 6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+  </div>
+</div>

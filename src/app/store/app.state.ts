@@ -1,26 +1,9 @@
-export interface ChatMessage {
-  role: 'user' | 'ai';
-  text: string;
-  timeTakenMs: number | null;
-  sourcesUsed: string[];
-}
+import { AuthState } from '../features/auth/store/auth.reducer';
+import { UploadState } from '../features/upload/store/upload.reducer';
+import { ChatState } from '../features/chat/store/chat.reducer';
 
 export interface AppState {
-  auth: {
-    token: string | null;
-    loading: boolean;
-    error: string | null;
-  };
-  upload: {
-    status: 'idle' | 'uploading' | 'success' | 'error';
-    fileName: string | null;
-    totalChunks: number;
-    error: string | null;
-  };
-  chat: {
-    messages: ChatMessage[];
-    sessionId: string | null;
-    loading: boolean;
-    error: string | null;
-  };
+  auth: AuthState;
+  upload: UploadState;
+  chat: ChatState;
 }

@@ -1,0 +1,23 @@
+<div class="input-bar">
+  <textarea
+    #textarea
+    class="input q-textarea"
+    placeholder="Ask a question about your document… (Enter to send, Shift+Enter for newline)"
+    [disabled]="disabled"
+    [value]="text"
+    (input)="onInput($event)"
+    (keydown)="onKeydown($event)"
+    rows="1"
+  ></textarea>
+  <button
+    class="btn btn-primary send-btn"
+    [disabled]="disabled || !text.trim()"
+    (click)="submit()"
+    title="Send (Enter)"
+  >
+    <app-spinner *ngIf="disabled" [size]="18"></app-spinner>
+    <svg *ngIf="!disabled" width="17" height="17" viewBox="0 0 17 17" fill="none">
+      <path d="M15 8.5H2M9 2.5l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+</div>
